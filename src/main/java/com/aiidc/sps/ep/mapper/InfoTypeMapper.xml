@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.InfoTypeMapper">
+  <resultMap id="BaseResultMap" type="com.aiidc.sps.ep.entity.InfoType">
+    <id column="ID" jdbcType="CHAR" property="id" />
+    <result column="TYPE_NAME" jdbcType="VARCHAR" property="typeName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TYPE_NAME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from RW_INFO_TYPE
+    where ID = #{id,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from RW_INFO_TYPE
+    where ID = #{id,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aiidc.sps.ep.entity.InfoType">
+    insert into RW_INFO_TYPE (ID, TYPE_NAME)
+    values (#{id,jdbcType=CHAR}, #{typeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aiidc.sps.ep.entity.InfoType">
+    insert into RW_INFO_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="typeName != null">
+        TYPE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=CHAR},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aiidc.sps.ep.entity.InfoType">
+    update RW_INFO_TYPE
+    <set>
+      <if test="typeName != null">
+        TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aiidc.sps.ep.entity.InfoType">
+    update RW_INFO_TYPE
+    set TYPE_NAME = #{typeName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=CHAR}
+  </update>
+</mapper>

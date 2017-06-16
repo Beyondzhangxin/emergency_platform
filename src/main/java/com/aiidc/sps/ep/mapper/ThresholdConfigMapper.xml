@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.ThresholdConfigDao">
+	  <resultMap id="BaseResultMap" type="com.aiidc.sps.ep.entity.ThresholdConfig">
+	    <id column="ID" jdbcType="VARCHAR" property="id" />
+	    <result column="Name" jdbcType="VARCHAR" property="name" />
+	    <result column="min" jdbcType="DECIMAL" property="min" />
+	    <result column="max" jdbcType="DECIMAL" property="max" />
+	    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+	    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+	  </resultMap>
+
+	  <select id="findThresholdConfig" resultMap="BaseResultMap" parameterType="com.aiidc.sps.ep.entity.ThresholdConfigForCheck">
+	  	select * from(
+		select rownum rn,em.* from 
+		<if test="1==type">eser_bound_monitor em</if>
+		<if test="2==type">eser_sewage_monitor em</if>
+		<if test="3==type">eser_rainwater_monitor em</if>
+		<if test="4==type">eser_air_monitor em</if>
+		where 1=1
+		<if test="null !=name">and em."Name" like '%'||#{name}||'%'  </if>
+		<if test="1==reportSet">and (em.min is null or em.max is null)</if>
+		<if test="2==reportSet">and (em.min is not null and em.max is not null)</if>
+		 )where rn between #{start} and #{end}
+  </select>
+  
+  <select id="getTotal" resultType="int" parameterType="com.aiidc.sps.ep.entity.ThresholdConfigForCheck">
+  		select count(*) from 
+		<if test="1==type">eser_bound_monitor em</if>
+		<if test="2==type">eser_sewage_monitor em</if>
+		<if test="3==type">eser_rainwater_monitor em</if>
+		<if test="4==type">eser_air_monitor em</if>
+		<where>
+		<if test="(null !=name)">and em."Name" like  '%'||#{name}||'%'   </if>
+		<if test="1==reportSet">and (em.min is null or em.max is null)</if>
+		<if test="2==reportSet"> and (em.min is not null and em.max is not null)</if>
+		</where>
+  </select>
+  
+  <select id="findThresholdById" resultMap="BaseResultMap" parameterType="com.aiidc.sps.ep.entity.ThresholdConfigForCheck"> 
+  	select * from 
+  	<if test="1==type">eser_bound_monitor em</if>
+	<if test="2==type">eser_sewage_monitor em</if>
+	<if test="3==type">eser_rainwater_monitor em</if>
+	<if test="4==type">eser_air_monitor em</if>
+	where em.id=#{id}
+  </select>
+  
+  <insert id="save" parameterType="com.aiidc.sps.ep.entity.ThresholdConfig">
+  	 	insert into 
+	  	<if test="1==type">eser_bound_monitor (ID, "Name", "MIN", "MAX", UNIT, "Remark")</if>
+		<if test="2==type">eser_sewage_monitor (ID, "Name", "MIN", "MAX", UNIT, "Remark")</if>
+		<if test="3==type">eser_rainwater_monitor(ID, "Name", "MIN", "MAX", UNIT, "REMARK") </if>
+		<if test="4==type">eser_air_monitor (ID, "Name", "MIN", "MAX", UNIT, "Remark")</if> 
+    	values 
+    	(#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{min,jdbcType=DECIMAL}, 
+      		#{max,jdbcType=DECIMAL}, #{unit,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="update" parameterType="com.aiidc.sps.ep.entity.ThresholdConfig">
+	  UPDATE 
+	 <if test="1==type">eser_bound_monitor </if>
+	<if test="2==type">eser_sewage_monitor </if>
+	<if test="3==type">eser_rainwater_monitor </if>
+	<if test="4==type">eser_air_monitor </if> 
+	<set>
+      <if test="name != null">"Name"= #{name,jdbcType=VARCHAR},</if>
+      <if test="min != null">"MIN" = #{min,jdbcType=DECIMAL},</if>
+      <if test="max != null">"MAX"= #{max,jdbcType=DECIMAL},</if>
+      <if test="unit != null">UNIT = #{unit,jdbcType=VARCHAR},</if>
+      <if test="3==type">"REMARK"= #{remark,jdbcType=VARCHAR}</if>
+      <if test="3!=type">"Remark"= #{remark,jdbcType=VARCHAR}</if>
+    </set>
+     where "ID" = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <delete id="delete" parameterType="com.aiidc.sps.ep.entity.ThresholdConfig">
+  	delete from  
+  	<if test="1==type">eser_bound_monitor </if>
+	<if test="2==type">eser_sewage_monitor </if>
+	<if test="3==type">eser_rainwater_monitor </if>
+	<if test="4==type">eser_air_monitor </if> 
+  	where "ID" = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+</mapper>

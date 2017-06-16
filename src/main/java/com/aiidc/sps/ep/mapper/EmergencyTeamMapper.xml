@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.EmergencyTeamMapper">
+   
+   <resultMap id="PositionResultMap" type="com.aiidc.sps.ep.entity.EquipmentPostion">
+    <id column="MATERIAL_ID" jdbcType="VARCHAR" property="id" />
+    <result column="MATERIAL_NAME" jdbcType="VARCHAR" property="name" />
+     <result column="MATERIAL_CLASSIFY_ID" jdbcType="INTEGER" property="type" />
+    <result column="LAT" jdbcType="NUMERIC" property="lat" />
+    <result column="LNG" jdbcType="NUMERIC" property="lng" />
+    <result column="positionOrder" jdbcType="INTEGER" property="positonOrder" />
+  </resultMap>  
+  
+  
+  <sql id="Base_Column_List">
+    TEAM_ID, TEAM_NAME, LAT, LNG
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="PositionResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from EM_RESOURCE_TEAM
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByParam" parameterType="com.aiidc.sps.ep.entity.EquipmentPositionParam" resultMap="PositionResultMap">
+  		select * from(
+		select rownum rn,TEAM_ID,TEAM_NAME,LAT,LNG,10 as positionOrder  
+  		from EM_RESOURCE_TEAM
+  		<where>
+  			COMPANY_ID is null
+   			<if test="name != null">
+  				and TEAM_NAME LIKE '%' || #{name} || '%'
+  			</if>
+  		</where>
+  		)
+  	 <where>
+  	 	 <if test="start !=null and end != null">
+  	 	      rn between #{start} and #{end}
+  	 	 </if>
+  	 </where>
+  </select>
+  <select id="selectCount" resultType="int" parameterType="com.aiidc.sps.ep.entity.EquipmentPositionParam">
+  		select count(*) from EM_RESOURCE_TEAM
+  	  	<where>
+  	  		COMPANY_ID is null
+   			<if test="name != null">
+  				and TEAM_NAME LIKE '%' || #{name} || '%'
+  			</if>
+  		</where>
+  </select>
+ 
+  
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.EmailServerMapper">
+
+  <insert id="insert" parameterType="com.aiidc.sps.ep.entity.EmailServer">
+	  <selectKey resultType="java.lang.Long" keyProperty="id" order="BEFORE">
+	  	select SEQ_RW_ES.nextval as id from dual
+	  </selectKey>
+	  insert into RW_EMAIL_SERVER 
+	  (ID, EMAIL_SERVER, EMAIL, EMAIL_PASSWORD)
+	  values 
+	  (#{id}, #{emailServer,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{emailPassword,jdbcType=VARCHAR})
+  </insert>
+  
+  <select id="getIdForEmailServer" resultType="java.lang.Long" >
+  		select SEQ_RW_ES.nextval from dual
+  </select>
+</mapper>
+
+
+
+
+
+
+

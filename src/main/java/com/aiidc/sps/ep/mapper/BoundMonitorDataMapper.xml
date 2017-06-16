@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.BoundMonitorDataMapper">
+  <resultMap id="BaseResultMap" type="com.aiidc.sps.ep.entity.BoundMonitorData">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="BoundID" jdbcType="VARCHAR" property="boundid" />
+    <result column="FactorID" jdbcType="VARCHAR" property="factorid" />
+    <result column="Time" jdbcType="TIMESTAMP" property="time" />
+    <result column="FactorValue" jdbcType="NUMERIC" property="factorvalue" />
+    <result column="Factor_Flag" jdbcType="VARCHAR" property="factorFlag" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, BoundID, FactorID, Time, FactorValue, Factor_Flag, Remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ESER_BOUND_MONITORDATA
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ESER_BOUND_MONITORDATA
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aiidc.sps.ep.entity.BoundMonitorData">
+    insert into ESER_BOUND_MONITORDATA (ID, BoundID, FactorID, 
+      Time, FactorValue, Factor_Flag, 
+      Remark)
+    values (#{id,jdbcType=VARCHAR}, #{boundid,jdbcType=VARCHAR}, #{factorid,jdbcType=VARCHAR}, 
+      #{time,jdbcType=TIMESTAMP}, #{factorvalue,jdbcType=NUMERIC}, #{factorFlag,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aiidc.sps.ep.entity.BoundMonitorData">
+    insert into ESER_BOUND_MONITORDATA
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="boundid != null">
+        BoundID,
+      </if>
+      <if test="factorid != null">
+        FactorID,
+      </if>
+      <if test="time != null">
+        Time,
+      </if>
+      <if test="factorvalue != null">
+        FactorValue,
+      </if>
+      <if test="factorFlag != null">
+        Factor_Flag,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="boundid != null">
+        #{boundid,jdbcType=VARCHAR},
+      </if>
+      <if test="factorid != null">
+        #{factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factorvalue != null">
+        #{factorvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="factorFlag != null">
+        #{factorFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aiidc.sps.ep.entity.BoundMonitorData">
+    update ESER_BOUND_MONITORDATA
+    <set>
+      <if test="boundid != null">
+        BoundID = #{boundid,jdbcType=VARCHAR},
+      </if>
+      <if test="factorid != null">
+        FactorID = #{factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        Time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factorvalue != null">
+        FactorValue = #{factorvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="factorFlag != null">
+        Factor_Flag = #{factorFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aiidc.sps.ep.entity.BoundMonitorData">
+    update ESER_BOUND_MONITORDATA
+    set BoundID = #{boundid,jdbcType=VARCHAR},
+      FactorID = #{factorid,jdbcType=VARCHAR},
+      Time = #{time,jdbcType=TIMESTAMP},
+      FactorValue = #{factorvalue,jdbcType=NUMERIC},
+      Factor_Flag = #{factorFlag,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

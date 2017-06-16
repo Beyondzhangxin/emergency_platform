@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.AirMonitorMapper">
+  <resultMap id="BaseResultMap" type="com.aiidc.sps.ep.entity.AirMonitor">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="MIN" jdbcType="NUMERIC" property="min" />
+    <result column="MAX" jdbcType="NUMERIC" property="max" />
+    <result column="UNIT" jdbcType="VARCHAR" property="unit" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, Name, MIN, MAX, UNIT, Remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ESER_AIR_MONITOR
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ESER_AIR_MONITOR
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aiidc.sps.ep.entity.AirMonitor">
+    insert into ESER_AIR_MONITOR (ID, Name, MIN, 
+      MAX, UNIT, Remark)
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{min,jdbcType=NUMERIC}, 
+      #{max,jdbcType=NUMERIC}, #{unit,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aiidc.sps.ep.entity.AirMonitor">
+    insert into ESER_AIR_MONITOR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="min != null">
+        MIN,
+      </if>
+      <if test="max != null">
+        MAX,
+      </if>
+      <if test="unit != null">
+        UNIT,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="min != null">
+        #{min,jdbcType=NUMERIC},
+      </if>
+      <if test="max != null">
+        #{max,jdbcType=NUMERIC},
+      </if>
+      <if test="unit != null">
+        #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aiidc.sps.ep.entity.AirMonitor">
+    update ESER_AIR_MONITOR
+    <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="min != null">
+        MIN = #{min,jdbcType=NUMERIC},
+      </if>
+      <if test="max != null">
+        MAX = #{max,jdbcType=NUMERIC},
+      </if>
+      <if test="unit != null">
+        UNIT = #{unit,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aiidc.sps.ep.entity.AirMonitor">
+    update ESER_AIR_MONITOR
+    set Name = #{name,jdbcType=VARCHAR},
+      MIN = #{min,jdbcType=NUMERIC},
+      MAX = #{max,jdbcType=NUMERIC},
+      UNIT = #{unit,jdbcType=VARCHAR},
+      Remark = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

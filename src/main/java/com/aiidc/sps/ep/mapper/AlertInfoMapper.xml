@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.AlertInfoMapper">
+  <resultMap id="BaseResultMap" type="com.aiidc.sps.ep.entity.AlertInfo">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="MONITORING_POINT" jdbcType="VARCHAR" property="monitoringPoint" />
+    <result column="EQUIPMENT_TYPE" jdbcType="CHAR" property="equipmentType" />
+    <result column="ALERT_TIME" jdbcType="TIMESTAMP" property="alertTime" />
+    <result column="ALERT_INFO" jdbcType="VARCHAR" property="alertInfo" />
+    <result column="ALERT_LEVEL" jdbcType="CHAR" property="alertLevel" />
+    <result column="ALARM_RECEIVER" jdbcType="VARCHAR" property="alarmReceiver" />
+    <result column="OPERATE_RESULT" jdbcType="VARCHAR" property="operateResult" />
+    <result column="OPERATE_TIME" jdbcType="TIMESTAMP" property="operateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, MONITORING_POINT, EQUIPMENT_TYPE, ALERT_TIME, ALERT_INFO, ALERT_LEVEL, ALARM_RECEIVER, 
+    OPERATE_RESULT, OPERATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from RW_ALERT_INFO
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from RW_ALERT_INFO
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="com.aiidc.sps.ep.entity.AlertInfo">
+    insert into RW_ALERT_INFO (ID, MONITORING_POINT, EQUIPMENT_TYPE, 
+      ALERT_TIME, ALERT_INFO, ALERT_LEVEL, 
+      ALARM_RECEIVER, OPERATE_RESULT, OPERATE_TIME
+      )
+    values (#{id,jdbcType=NUMERIC}, #{monitoringPoint,jdbcType=VARCHAR}, #{equipmentType,jdbcType=CHAR}, 
+      #{alertTime,jdbcType=TIMESTAMP}, #{alertInfo,jdbcType=VARCHAR}, #{alertLevel,jdbcType=CHAR}, 
+      #{alarmReceiver,jdbcType=VARCHAR}, #{operateResult,jdbcType=VARCHAR}, #{operateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aiidc.sps.ep.entity.AlertInfo">
+    insert into RW_ALERT_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="monitoringPoint != null">
+        MONITORING_POINT,
+      </if>
+      <if test="equipmentType != null">
+        EQUIPMENT_TYPE,
+      </if>
+      <if test="alertTime != null">
+        ALERT_TIME,
+      </if>
+      <if test="alertInfo != null">
+        ALERT_INFO,
+      </if>
+      <if test="alertLevel != null">
+        ALERT_LEVEL,
+      </if>
+      <if test="alarmReceiver != null">
+        ALARM_RECEIVER,
+      </if>
+      <if test="operateResult != null">
+        OPERATE_RESULT,
+      </if>
+      <if test="operateTime != null">
+        OPERATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="monitoringPoint != null">
+        #{monitoringPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentType != null">
+        #{equipmentType,jdbcType=CHAR},
+      </if>
+      <if test="alertTime != null">
+        #{alertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alertInfo != null">
+        #{alertInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="alertLevel != null">
+        #{alertLevel,jdbcType=CHAR},
+      </if>
+      <if test="alarmReceiver != null">
+        #{alarmReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="operateResult != null">
+        #{operateResult,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null">
+        #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aiidc.sps.ep.entity.AlertInfo">
+    update RW_ALERT_INFO
+    <set>
+      <if test="monitoringPoint != null">
+        MONITORING_POINT = #{monitoringPoint,jdbcType=VARCHAR},
+      </if>
+      <if test="equipmentType != null">
+        EQUIPMENT_TYPE = #{equipmentType,jdbcType=CHAR},
+      </if>
+      <if test="alertTime != null">
+        ALERT_TIME = #{alertTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alertInfo != null">
+        ALERT_INFO = #{alertInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="alertLevel != null">
+        ALERT_LEVEL = #{alertLevel,jdbcType=CHAR},
+      </if>
+      <if test="alarmReceiver != null">
+        ALARM_RECEIVER = #{alarmReceiver,jdbcType=VARCHAR},
+      </if>
+      <if test="operateResult != null">
+        OPERATE_RESULT = #{operateResult,jdbcType=VARCHAR},
+      </if>
+      <if test="operateTime != null">
+        OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aiidc.sps.ep.entity.AlertInfo">
+    update RW_ALERT_INFO
+    set MONITORING_POINT = #{monitoringPoint,jdbcType=VARCHAR},
+      EQUIPMENT_TYPE = #{equipmentType,jdbcType=CHAR},
+      ALERT_TIME = #{alertTime,jdbcType=TIMESTAMP},
+      ALERT_INFO = #{alertInfo,jdbcType=VARCHAR},
+      ALERT_LEVEL = #{alertLevel,jdbcType=CHAR},
+      ALARM_RECEIVER = #{alarmReceiver,jdbcType=VARCHAR},
+      OPERATE_RESULT = #{operateResult,jdbcType=VARCHAR},
+      OPERATE_TIME = #{operateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+</mapper>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.BoundMonitorDataDayMapper">
+  <resultMap id="BaseResultMap" type="com.aiidc.sps.ep.entity.BoundMonitorDataDay">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="TIME" jdbcType="TIMESTAMP" property="time" />
+    <result column="BoundID" jdbcType="VARCHAR" property="boundid" />
+    <result column="FactorID" jdbcType="VARCHAR" property="factorid" />
+    <result column="AvgValue" jdbcType="NUMERIC" property="avgvalue" />
+    <result column="MinValue" jdbcType="NUMERIC" property="minvalue" />
+    <result column="MinTime" jdbcType="NUMERIC" property="mintime" />
+    <result column="MaxValue" jdbcType="NUMERIC" property="maxvalue" />
+    <result column="MaxTime" jdbcType="NUMERIC" property="maxtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TIME, BoundID, FactorID, AvgValue, MinValue, MinTime, MaxValue, MaxTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ESER_BOUND_MONITORDATA_DAY
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ESER_BOUND_MONITORDATA_DAY
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aiidc.sps.ep.entity.BoundMonitorDataDay">
+    insert into ESER_BOUND_MONITORDATA_DAY (ID, TIME, BoundID, 
+      FactorID, AvgValue, MinValue, 
+      MinTime, MaxValue, MaxTime
+      )
+    values (#{id,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{boundid,jdbcType=VARCHAR}, 
+      #{factorid,jdbcType=VARCHAR}, #{avgvalue,jdbcType=NUMERIC}, #{minvalue,jdbcType=NUMERIC}, 
+      #{mintime,jdbcType=NUMERIC}, #{maxvalue,jdbcType=NUMERIC}, #{maxtime,jdbcType=NUMERIC}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aiidc.sps.ep.entity.BoundMonitorDataDay">
+    insert into ESER_BOUND_MONITORDATA_DAY
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="time != null">
+        TIME,
+      </if>
+      <if test="boundid != null">
+        BoundID,
+      </if>
+      <if test="factorid != null">
+        FactorID,
+      </if>
+      <if test="avgvalue != null">
+        AvgValue,
+      </if>
+      <if test="minvalue != null">
+        MinValue,
+      </if>
+      <if test="mintime != null">
+        MinTime,
+      </if>
+      <if test="maxvalue != null">
+        MaxValue,
+      </if>
+      <if test="maxtime != null">
+        MaxTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="boundid != null">
+        #{boundid,jdbcType=VARCHAR},
+      </if>
+      <if test="factorid != null">
+        #{factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="avgvalue != null">
+        #{avgvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="minvalue != null">
+        #{minvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="mintime != null">
+        #{mintime,jdbcType=NUMERIC},
+      </if>
+      <if test="maxvalue != null">
+        #{maxvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="maxtime != null">
+        #{maxtime,jdbcType=NUMERIC},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aiidc.sps.ep.entity.BoundMonitorDataDay">
+    update ESER_BOUND_MONITORDATA_DAY
+    <set>
+      <if test="time != null">
+        TIME = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="boundid != null">
+        BoundID = #{boundid,jdbcType=VARCHAR},
+      </if>
+      <if test="factorid != null">
+        FactorID = #{factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="avgvalue != null">
+        AvgValue = #{avgvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="minvalue != null">
+        MinValue = #{minvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="mintime != null">
+        MinTime = #{mintime,jdbcType=NUMERIC},
+      </if>
+      <if test="maxvalue != null">
+        MaxValue = #{maxvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="maxtime != null">
+        MaxTime = #{maxtime,jdbcType=NUMERIC},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aiidc.sps.ep.entity.BoundMonitorDataDay">
+    update ESER_BOUND_MONITORDATA_DAY
+    set TIME = #{time,jdbcType=TIMESTAMP},
+      BoundID = #{boundid,jdbcType=VARCHAR},
+      FactorID = #{factorid,jdbcType=VARCHAR},
+      AvgValue = #{avgvalue,jdbcType=NUMERIC},
+      MinValue = #{minvalue,jdbcType=NUMERIC},
+      MinTime = #{mintime,jdbcType=NUMERIC},
+      MaxValue = #{maxvalue,jdbcType=NUMERIC},
+      MaxTime = #{maxtime,jdbcType=NUMERIC}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

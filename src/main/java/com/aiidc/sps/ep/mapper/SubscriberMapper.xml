@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.SubscriberMapper">
+  <resultMap id="BaseResultMap" type="com.aiidc.sps.ep.entity.Subscriber">
+    <id column="ID" jdbcType="NUMERIC" property="id" />
+    <result column="SUBSCRIBER" jdbcType="VARCHAR" property="subscriber" />
+    <result column="INFO_TYPE" jdbcType="NUMERIC" property="infoType" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="MOBIL_PHONE" jdbcType="VARCHAR" property="mobilPhone" />
+    <result column="CHANGE_TIME" jdbcType="TIMESTAMP" property="changeTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SUBSCRIBER, INFO_TYPE, EMAIL, MOBIL_PHONE, CHANGE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from RW_SUBSCRIBER
+    where ID = #{id,jdbcType=NUMERIC}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from RW_SUBSCRIBER
+    where ID = #{id,jdbcType=NUMERIC}
+  </delete>
+  <insert id="insert" parameterType="com.aiidc.sps.ep.entity.Subscriber">
+    insert into RW_SUBSCRIBER (ID, SUBSCRIBER, INFO_TYPE, 
+      EMAIL, MOBIL_PHONE, CHANGE_TIME
+      )
+    values (#{id,jdbcType=NUMERIC}, #{subscriber,jdbcType=VARCHAR}, #{infoType,jdbcType=NUMERIC}, 
+      #{email,jdbcType=VARCHAR}, #{mobilPhone,jdbcType=VARCHAR}, #{changeTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aiidc.sps.ep.entity.Subscriber">
+    insert into RW_SUBSCRIBER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="subscriber != null">
+        SUBSCRIBER,
+      </if>
+      <if test="infoType != null">
+        INFO_TYPE,
+      </if>
+      <if test="email != null">
+        EMAIL,
+      </if>
+      <if test="mobilPhone != null">
+        MOBIL_PHONE,
+      </if>
+      <if test="changeTime != null">
+        CHANGE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=NUMERIC},
+      </if>
+      <if test="subscriber != null">
+        #{subscriber,jdbcType=VARCHAR},
+      </if>
+      <if test="infoType != null">
+        #{infoType,jdbcType=NUMERIC},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilPhone != null">
+        #{mobilPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="changeTime != null">
+        #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aiidc.sps.ep.entity.Subscriber">
+    update RW_SUBSCRIBER
+    <set>
+      <if test="subscriber != null">
+        SUBSCRIBER = #{subscriber,jdbcType=VARCHAR},
+      </if>
+      <if test="infoType != null">
+        INFO_TYPE = #{infoType,jdbcType=NUMERIC},
+      </if>
+      <if test="email != null">
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobilPhone != null">
+        MOBIL_PHONE = #{mobilPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="changeTime != null">
+        CHANGE_TIME = #{changeTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aiidc.sps.ep.entity.Subscriber">
+    update RW_SUBSCRIBER
+    set SUBSCRIBER = #{subscriber,jdbcType=VARCHAR},
+      INFO_TYPE = #{infoType,jdbcType=NUMERIC},
+      EMAIL = #{email,jdbcType=VARCHAR},
+      MOBIL_PHONE = #{mobilPhone,jdbcType=VARCHAR},
+      CHANGE_TIME = #{changeTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=NUMERIC}
+  </update>
+</mapper>

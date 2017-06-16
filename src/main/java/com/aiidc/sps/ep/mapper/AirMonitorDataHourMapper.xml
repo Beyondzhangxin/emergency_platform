@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.AirMonitorDataHourMapper">
+  <resultMap id="BaseResultMap" type="com.aiidc.sps.ep.entity.AirMonitorDataHour">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="TIME" jdbcType="TIMESTAMP" property="time" />
+    <result column="FactorID" jdbcType="VARCHAR" property="factorid" />
+    <result column="AirID" jdbcType="VARCHAR" property="airid" />
+    <result column="NDAvgValue" jdbcType="NUMERIC" property="ndavgvalue" />
+    <result column="NDMinValue" jdbcType="NUMERIC" property="ndminvalue" />
+    <result column="NDMinTime" jdbcType="TIMESTAMP" property="ndmintime" />
+    <result column="NDMaxValue" jdbcType="NUMERIC" property="ndmaxvalue" />
+    <result column="NDMaxTime" jdbcType="TIMESTAMP" property="ndmaxtime" />
+    <result column="PFLAvgValue" jdbcType="NUMERIC" property="pflavgvalue" />
+    <result column="PFLMinValue" jdbcType="NUMERIC" property="pflminvalue" />
+    <result column="PFLMinTime" jdbcType="TIMESTAMP" property="pflmintime" />
+    <result column="PFLMaxValue" jdbcType="NUMERIC" property="pflmaxvalue" />
+    <result column="PFLMaxTime" jdbcType="TIMESTAMP" property="pflmaxtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TIME, FactorID, AirID, NDAvgValue, NDMinValue, NDMinTime, NDMaxValue, NDMaxTime, 
+    PFLAvgValue, PFLMinValue, PFLMinTime, PFLMaxValue, PFLMaxTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ESER_AIR_MONITORDATA_HOUR
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ESER_AIR_MONITORDATA_HOUR
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aiidc.sps.ep.entity.AirMonitorDataHour">
+    insert into ESER_AIR_MONITORDATA_HOUR (ID, TIME, FactorID, 
+      AirID, NDAvgValue, NDMinValue, 
+      NDMinTime, NDMaxValue, NDMaxTime, 
+      PFLAvgValue, PFLMinValue, PFLMinTime, 
+      PFLMaxValue, PFLMaxTime)
+    values (#{id,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, #{factorid,jdbcType=VARCHAR}, 
+      #{airid,jdbcType=VARCHAR}, #{ndavgvalue,jdbcType=NUMERIC}, #{ndminvalue,jdbcType=NUMERIC}, 
+      #{ndmintime,jdbcType=TIMESTAMP}, #{ndmaxvalue,jdbcType=NUMERIC}, #{ndmaxtime,jdbcType=TIMESTAMP}, 
+      #{pflavgvalue,jdbcType=NUMERIC}, #{pflminvalue,jdbcType=NUMERIC}, #{pflmintime,jdbcType=TIMESTAMP}, 
+      #{pflmaxvalue,jdbcType=NUMERIC}, #{pflmaxtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.aiidc.sps.ep.entity.AirMonitorDataHour">
+    insert into ESER_AIR_MONITORDATA_HOUR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="time != null">
+        TIME,
+      </if>
+      <if test="factorid != null">
+        FactorID,
+      </if>
+      <if test="airid != null">
+        AirID,
+      </if>
+      <if test="ndavgvalue != null">
+        NDAvgValue,
+      </if>
+      <if test="ndminvalue != null">
+        NDMinValue,
+      </if>
+      <if test="ndmintime != null">
+        NDMinTime,
+      </if>
+      <if test="ndmaxvalue != null">
+        NDMaxValue,
+      </if>
+      <if test="ndmaxtime != null">
+        NDMaxTime,
+      </if>
+      <if test="pflavgvalue != null">
+        PFLAvgValue,
+      </if>
+      <if test="pflminvalue != null">
+        PFLMinValue,
+      </if>
+      <if test="pflmintime != null">
+        PFLMinTime,
+      </if>
+      <if test="pflmaxvalue != null">
+        PFLMaxValue,
+      </if>
+      <if test="pflmaxtime != null">
+        PFLMaxTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factorid != null">
+        #{factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="airid != null">
+        #{airid,jdbcType=VARCHAR},
+      </if>
+      <if test="ndavgvalue != null">
+        #{ndavgvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="ndminvalue != null">
+        #{ndminvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="ndmintime != null">
+        #{ndmintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ndmaxvalue != null">
+        #{ndmaxvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="ndmaxtime != null">
+        #{ndmaxtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pflavgvalue != null">
+        #{pflavgvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="pflminvalue != null">
+        #{pflminvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="pflmintime != null">
+        #{pflmintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pflmaxvalue != null">
+        #{pflmaxvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="pflmaxtime != null">
+        #{pflmaxtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aiidc.sps.ep.entity.AirMonitorDataHour">
+    update ESER_AIR_MONITORDATA_HOUR
+    <set>
+      <if test="time != null">
+        TIME = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factorid != null">
+        FactorID = #{factorid,jdbcType=VARCHAR},
+      </if>
+      <if test="airid != null">
+        AirID = #{airid,jdbcType=VARCHAR},
+      </if>
+      <if test="ndavgvalue != null">
+        NDAvgValue = #{ndavgvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="ndminvalue != null">
+        NDMinValue = #{ndminvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="ndmintime != null">
+        NDMinTime = #{ndmintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ndmaxvalue != null">
+        NDMaxValue = #{ndmaxvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="ndmaxtime != null">
+        NDMaxTime = #{ndmaxtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pflavgvalue != null">
+        PFLAvgValue = #{pflavgvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="pflminvalue != null">
+        PFLMinValue = #{pflminvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="pflmintime != null">
+        PFLMinTime = #{pflmintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="pflmaxvalue != null">
+        PFLMaxValue = #{pflmaxvalue,jdbcType=NUMERIC},
+      </if>
+      <if test="pflmaxtime != null">
+        PFLMaxTime = #{pflmaxtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aiidc.sps.ep.entity.AirMonitorDataHour">
+    update ESER_AIR_MONITORDATA_HOUR
+    set TIME = #{time,jdbcType=TIMESTAMP},
+      FactorID = #{factorid,jdbcType=VARCHAR},
+      AirID = #{airid,jdbcType=VARCHAR},
+      NDAvgValue = #{ndavgvalue,jdbcType=NUMERIC},
+      NDMinValue = #{ndminvalue,jdbcType=NUMERIC},
+      NDMinTime = #{ndmintime,jdbcType=TIMESTAMP},
+      NDMaxValue = #{ndmaxvalue,jdbcType=NUMERIC},
+      NDMaxTime = #{ndmaxtime,jdbcType=TIMESTAMP},
+      PFLAvgValue = #{pflavgvalue,jdbcType=NUMERIC},
+      PFLMinValue = #{pflminvalue,jdbcType=NUMERIC},
+      PFLMinTime = #{pflmintime,jdbcType=TIMESTAMP},
+      PFLMaxValue = #{pflmaxvalue,jdbcType=NUMERIC},
+      PFLMaxTime = #{pflmaxtime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

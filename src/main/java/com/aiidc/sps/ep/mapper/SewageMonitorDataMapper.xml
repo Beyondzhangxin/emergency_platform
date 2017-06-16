@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.SewageMonitorDataMapper">
+  <resultMap id="BaseResultMap" type="com.aiidc.sps.ep.entity.SewageMonitorData">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="SewageID" jdbcType="VARCHAR" property="sewageid" />
+    <result column="Time" jdbcType="TIMESTAMP" property="time" />
+    <result column="FactorID" jdbcType="NUMERIC" property="factorid" />
+    <result column="FactorND" jdbcType="NUMERIC" property="factornd" />
+    <result column="FactorPFL" jdbcType="NUMERIC" property="factorpfl" />
+    <result column="Factor_Flag" jdbcType="NUMERIC" property="factorFlag" />
+    <result column="AUDITSTATE" jdbcType="NUMERIC" property="auditstate" />
+    <result column="Remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, SewageID, Time, FactorID, FactorND, FactorPFL, Factor_Flag, AUDITSTATE, Remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ESER_SEWAGE_MONITORDATA
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ESER_SEWAGE_MONITORDATA
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aiidc.sps.ep.entity.SewageMonitorData">
+    insert into ESER_SEWAGE_MONITORDATA (ID, SewageID, Time, 
+      FactorID, FactorND, FactorPFL, 
+      Factor_Flag, AUDITSTATE, Remark
+      )
+    values (#{id,jdbcType=VARCHAR}, #{sewageid,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP}, 
+      #{factorid,jdbcType=NUMERIC}, #{factornd,jdbcType=NUMERIC}, #{factorpfl,jdbcType=NUMERIC}, 
+      #{factorFlag,jdbcType=NUMERIC}, #{auditstate,jdbcType=NUMERIC}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aiidc.sps.ep.entity.SewageMonitorData">
+    insert into ESER_SEWAGE_MONITORDATA
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="sewageid != null">
+        SewageID,
+      </if>
+      <if test="time != null">
+        Time,
+      </if>
+      <if test="factorid != null">
+        FactorID,
+      </if>
+      <if test="factornd != null">
+        FactorND,
+      </if>
+      <if test="factorpfl != null">
+        FactorPFL,
+      </if>
+      <if test="factorFlag != null">
+        Factor_Flag,
+      </if>
+      <if test="auditstate != null">
+        AUDITSTATE,
+      </if>
+      <if test="remark != null">
+        Remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sewageid != null">
+        #{sewageid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factorid != null">
+        #{factorid,jdbcType=NUMERIC},
+      </if>
+      <if test="factornd != null">
+        #{factornd,jdbcType=NUMERIC},
+      </if>
+      <if test="factorpfl != null">
+        #{factorpfl,jdbcType=NUMERIC},
+      </if>
+      <if test="factorFlag != null">
+        #{factorFlag,jdbcType=NUMERIC},
+      </if>
+      <if test="auditstate != null">
+        #{auditstate,jdbcType=NUMERIC},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aiidc.sps.ep.entity.SewageMonitorData">
+    update ESER_SEWAGE_MONITORDATA
+    <set>
+      <if test="sewageid != null">
+        SewageID = #{sewageid,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        Time = #{time,jdbcType=TIMESTAMP},
+      </if>
+      <if test="factorid != null">
+        FactorID = #{factorid,jdbcType=NUMERIC},
+      </if>
+      <if test="factornd != null">
+        FactorND = #{factornd,jdbcType=NUMERIC},
+      </if>
+      <if test="factorpfl != null">
+        FactorPFL = #{factorpfl,jdbcType=NUMERIC},
+      </if>
+      <if test="factorFlag != null">
+        Factor_Flag = #{factorFlag,jdbcType=NUMERIC},
+      </if>
+      <if test="auditstate != null">
+        AUDITSTATE = #{auditstate,jdbcType=NUMERIC},
+      </if>
+      <if test="remark != null">
+        Remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aiidc.sps.ep.entity.SewageMonitorData">
+    update ESER_SEWAGE_MONITORDATA
+    set SewageID = #{sewageid,jdbcType=VARCHAR},
+      Time = #{time,jdbcType=TIMESTAMP},
+      FactorID = #{factorid,jdbcType=NUMERIC},
+      FactorND = #{factornd,jdbcType=NUMERIC},
+      FactorPFL = #{factorpfl,jdbcType=NUMERIC},
+      Factor_Flag = #{factorFlag,jdbcType=NUMERIC},
+      AUDITSTATE = #{auditstate,jdbcType=NUMERIC},
+      Remark = #{remark,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

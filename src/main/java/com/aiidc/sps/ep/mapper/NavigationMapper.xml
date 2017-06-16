@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.NavigationMapper">
+
+	<resultMap type="com.aiidc.sps.ep.entity.Navigation" id="navigationMap">
+		<result column="icon_cls" property="iconCls"/>
+		<result column="func_id" property="funcid"/>
+	</resultMap>
+	<select id="getRootNavigationList" resultMap="navigationMap">
+		select * from navigation where pid is null and sys_id=5 order by orderby
+	</select>
+	
+	<select id="getNavigationListByParent" parameterType="int" resultMap="navigationMap" >
+		select * from navigation where pid=#{pid} and sys_id=5 order by orderby
+	</select>
+</mapper>

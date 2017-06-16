@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aiidc.sps.ep.mapper.AirConfigurationMapper">
+  <resultMap id="BaseResultMap" type="com.aiidc.sps.ep.entity.AirConfiguration">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+    <result column="ENTID" jdbcType="NUMERIC" property="entid" />
+    <result column="LAT" jdbcType="NUMERIC" property="lat" />
+    <result column="LNG" jdbcType="NUMERIC" property="lng" />
+    <result column="SNAME" jdbcType="VARCHAR" property="sname" />
+    <result column="FK_PRCODE" jdbcType="VARCHAR" property="fkPrcode" />
+    <result column="FK_FCCODE" jdbcType="VARCHAR" property="fkFccode" />
+    <result column="FK_BWCODE" jdbcType="VARCHAR" property="fkBwcode" />
+    <result column="FK_AFCODE" jdbcType="VARCHAR" property="fkAfcode" />
+    <result column="PORTNO" jdbcType="VARCHAR" property="portno" />
+    <result column="PORTPOS" jdbcType="VARCHAR" property="portpos" />
+    <result column="PORTH" jdbcType="NUMERIC" property="porth" />
+    <result column="PIRAD" jdbcType="NUMERIC" property="pirad" />
+    <result column="FINTISTC" jdbcType="NUMERIC" property="fintistc" />
+    <result column="PORTTYPE" jdbcType="VARCHAR" property="porttype" />
+  </resultMap>
+  
+    <resultMap id="PositionResultMap" type="com.aiidc.sps.ep.entity.EquipmentPostion">
+    <id column="ID" jdbcType="VARCHAR" property="id" />
+    <result column="Name" jdbcType="VARCHAR" property="name" />
+     <result column="TYPE" jdbcType="INTEGER" property="type" />
+    <result column="LAT" jdbcType="NUMERIC" property="lat" />
+    <result column="LNG" jdbcType="NUMERIC" property="lng" />
+    <result column="positionOrder" jdbcType="INTEGER" property="positonOrder" />
+    <result column="ENTID" jdbcType="INTEGER" property="ENTID" />
+  </resultMap>  
+  
+  <sql id="Base_Column_List">
+    ID, Name, ENTID, LAT, LNG, SNAME, FK_PRCODE, FK_FCCODE, FK_BWCODE, FK_AFCODE, PORTNO, 
+    PORTPOS, PORTH, PIRAD, FINTISTC, PORTTYPE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ESER_AIR_CONFIGURATION
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+   <select id="selectByParam" parameterType="com.aiidc.sps.ep.entity.EquipmentPositionParam" resultMap="PositionResultMap">
+  		select * from(
+		select rownum rn,ID,"Name",ENTID，LAT,LNG,5 as positionOrder 
+  		from ESER_AIR_CONFIGURATION
+  		<where>
+   			<if test="name != null">
+  				and "Name" LIKE '%' || #{name} || '%'
+  			</if>
+  		</where>
+  		)
+  	 <where>
+  	 	 <if test="start !=null and end != null">
+  	 	      rn between #{start} and #{end}
+  	 	 </if>
+  	 </where>
+  </select>
+  
+    <select id="selectCount" resultType="int" parameterType="com.aiidc.sps.ep.entity.EquipmentPositionParam">
+  		select count(*) from ESER_AIR_CONFIGURATION
+  	  	<where>
+   			<if test="name != null">
+  				and "Name" LIKE '%' || #{name} || '%'
+  			</if>
+  		</where>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ESER_AIR_CONFIGURATION
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.aiidc.sps.ep.entity.AirConfiguration">
+    insert into ESER_AIR_CONFIGURATION (ID, Name, ENTID, 
+      LAT, LNG, SNAME, FK_PRCODE, 
+      FK_FCCODE, FK_BWCODE, FK_AFCODE, 
+      PORTNO, PORTPOS, PORTH, 
+      PIRAD, FINTISTC, PORTTYPE
+      )
+    values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{entid,jdbcType=NUMERIC}, 
+      #{lat,jdbcType=NUMERIC}, #{lng,jdbcType=NUMERIC}, #{sname,jdbcType=VARCHAR}, #{fkPrcode,jdbcType=VARCHAR}, 
+      #{fkFccode,jdbcType=VARCHAR}, #{fkBwcode,jdbcType=VARCHAR}, #{fkAfcode,jdbcType=VARCHAR}, 
+      #{portno,jdbcType=VARCHAR}, #{portpos,jdbcType=VARCHAR}, #{porth,jdbcType=NUMERIC}, 
+      #{pirad,jdbcType=NUMERIC}, #{fintistc,jdbcType=NUMERIC}, #{porttype,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.aiidc.sps.ep.entity.AirConfiguration">
+    insert into ESER_AIR_CONFIGURATION
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="name != null">
+        Name,
+      </if>
+      <if test="entid != null">
+        ENTID,
+      </if>
+      <if test="lat != null">
+        LAT,
+      </if>
+      <if test="lng != null">
+        LNG,
+      </if>
+      <if test="sname != null">
+        SNAME,
+      </if>
+      <if test="fkPrcode != null">
+        FK_PRCODE,
+      </if>
+      <if test="fkFccode != null">
+        FK_FCCODE,
+      </if>
+      <if test="fkBwcode != null">
+        FK_BWCODE,
+      </if>
+      <if test="fkAfcode != null">
+        FK_AFCODE,
+      </if>
+      <if test="portno != null">
+        PORTNO,
+      </if>
+      <if test="portpos != null">
+        PORTPOS,
+      </if>
+      <if test="porth != null">
+        PORTH,
+      </if>
+      <if test="pirad != null">
+        PIRAD,
+      </if>
+      <if test="fintistc != null">
+        FINTISTC,
+      </if>
+      <if test="porttype != null">
+        PORTTYPE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="entid != null">
+        #{entid,jdbcType=NUMERIC},
+      </if>
+      <if test="lat != null">
+        #{lat,jdbcType=NUMERIC},
+      </if>
+      <if test="lng != null">
+        #{lng,jdbcType=NUMERIC},
+      </if>
+      <if test="sname != null">
+        #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="fkPrcode != null">
+        #{fkPrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fkFccode != null">
+        #{fkFccode,jdbcType=VARCHAR},
+      </if>
+      <if test="fkBwcode != null">
+        #{fkBwcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fkAfcode != null">
+        #{fkAfcode,jdbcType=VARCHAR},
+      </if>
+      <if test="portno != null">
+        #{portno,jdbcType=VARCHAR},
+      </if>
+      <if test="portpos != null">
+        #{portpos,jdbcType=VARCHAR},
+      </if>
+      <if test="porth != null">
+        #{porth,jdbcType=NUMERIC},
+      </if>
+      <if test="pirad != null">
+        #{pirad,jdbcType=NUMERIC},
+      </if>
+      <if test="fintistc != null">
+        #{fintistc,jdbcType=NUMERIC},
+      </if>
+      <if test="porttype != null">
+        #{porttype,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.aiidc.sps.ep.entity.AirConfiguration">
+    update ESER_AIR_CONFIGURATION
+    <set>
+      <if test="name != null">
+        Name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="entid != null">
+        ENTID = #{entid,jdbcType=NUMERIC},
+      </if>
+      <if test="lat != null">
+        LAT = #{lat,jdbcType=NUMERIC},
+      </if>
+      <if test="lng != null">
+        LNG = #{lng,jdbcType=NUMERIC},
+      </if>
+      <if test="sname != null">
+        SNAME = #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="fkPrcode != null">
+        FK_PRCODE = #{fkPrcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fkFccode != null">
+        FK_FCCODE = #{fkFccode,jdbcType=VARCHAR},
+      </if>
+      <if test="fkBwcode != null">
+        FK_BWCODE = #{fkBwcode,jdbcType=VARCHAR},
+      </if>
+      <if test="fkAfcode != null">
+        FK_AFCODE = #{fkAfcode,jdbcType=VARCHAR},
+      </if>
+      <if test="portno != null">
+        PORTNO = #{portno,jdbcType=VARCHAR},
+      </if>
+      <if test="portpos != null">
+        PORTPOS = #{portpos,jdbcType=VARCHAR},
+      </if>
+      <if test="porth != null">
+        PORTH = #{porth,jdbcType=NUMERIC},
+      </if>
+      <if test="pirad != null">
+        PIRAD = #{pirad,jdbcType=NUMERIC},
+      </if>
+      <if test="fintistc != null">
+        FINTISTC = #{fintistc,jdbcType=NUMERIC},
+      </if>
+      <if test="porttype != null">
+        PORTTYPE = #{porttype,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.aiidc.sps.ep.entity.AirConfiguration">
+    update ESER_AIR_CONFIGURATION
+    set Name = #{name,jdbcType=VARCHAR},
+      ENTID = #{entid,jdbcType=NUMERIC},
+      LAT = #{lat,jdbcType=NUMERIC},
+      LNG = #{lng,jdbcType=NUMERIC},
+      SNAME = #{sname,jdbcType=VARCHAR},
+      FK_PRCODE = #{fkPrcode,jdbcType=VARCHAR},
+      FK_FCCODE = #{fkFccode,jdbcType=VARCHAR},
+      FK_BWCODE = #{fkBwcode,jdbcType=VARCHAR},
+      FK_AFCODE = #{fkAfcode,jdbcType=VARCHAR},
+      PORTNO = #{portno,jdbcType=VARCHAR},
+      PORTPOS = #{portpos,jdbcType=VARCHAR},
+      PORTH = #{porth,jdbcType=NUMERIC},
+      PIRAD = #{pirad,jdbcType=NUMERIC},
+      FINTISTC = #{fintistc,jdbcType=NUMERIC},
+      PORTTYPE = #{porttype,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
